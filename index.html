@@ -5,10 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quran App Redirect</title>
     <script>
-        window.location.href = "quran://open";
+        function openApp() {
+            let appScheme = "quran://open";
+            let playStoreUrl = "https://play.google.com/store/apps/details?id=com.example.quran"; // 🔄 Replace with your app's Play Store link
+            let timeout = 2000; // 2 seconds timeout
+
+            // Try opening the app
+            let now = new Date().getTime();
+            window.location.href = appScheme;
+
+            // Check if the app opened, otherwise redirect to Play Store
+            setTimeout(() => {
+                if (new Date().getTime() - now < timeout + 100) {
+                    // App is not installed, check Play Store
+                    window.location.href = playStoreUrl;
+                }
+            }, timeout);
+        }
+
+        // Run the function on page load
+        window.onload = openApp;
     </script>
 </head>
 <body>
     <p>If you are not redirected, <a href="quran://open">click here</a>.</p>
+    <p id="message"></p>
 </body>
 </html>
